@@ -48,3 +48,16 @@ h1 {
     height: 200px;
     width: 200px;
 }
+
+.photographer_section--divContainer {
+    border: solid 1px red;
+    border-radius: 50%;
+    overflow: hidden;
+
+}
+
+.photographer_section--img {
+    border-radius: 50%;
+    object-fit: cover;
+
+}

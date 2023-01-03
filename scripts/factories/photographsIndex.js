@@ -1,44 +1,55 @@
-export class PhotographsCreation {
+class AppendChild {
+    constructor() {
+    }
+
+    AppendCardDOM(query, element) {
+        const photographersSection = document.querySelector(query);
+
+        photographersSection.appendChild(element);
+    }
+}
+
+export class PhotographsCreation extends AppendChild {
+    article = document.createElement('article');
+    div = document.createElement('div');
+    img = document.createElement('img');
+    h2 = document.createElement('h2');
+    h3 = document.createElement('h3')
+    p = document.createElement('p');
+    span = document.createElement('span');
 
     constructor(photograph) {
+        super()
         console.log("photograph", photograph);
 
         // CREATION DES NODES
-        const article = document.createElement('article');
-        const div = document.createElement('div');
-        div.setAttribute("class", "photographer_section--divContainer");
+        this.div.setAttribute("class", "photographer_section--divContainer");
 
-        const img = document.createElement('img');
-        img.setAttribute("src", photograph.picture)
-        img.setAttribute("class", "photographer_section--img")
+        this.img.setAttribute("src", photograph.picture)
+        this.img.setAttribute("class", "photographer_section--img")
 
-        const h2 = document.createElement('h2');
-        h2.textContent = photograph.name;
+        this.h2.textContent = photograph.name;
 
-        const h3 = document.createElement('h3');
-        h2.textContent = photograph.city + ", " + photograph.country;
+        this.h3.textContent = photograph.city + ", " + photograph.country;
 
-        const p = document.createElement('p');
-        p.textContent = photograph.tagline;
+        this.p.textContent = photograph.tagline;
 
-        const span = document.createElement('span');
-        span.textContent = photograph.price + " €/jour"
-
-
+        this.span.textContent = photograph.price + " €/jour"
 
         //MISE EN ORDRES DES NODES
-        div.appendChild(img);
-        article.appendChild(div);
-        article.appendChild(h2);
-        article.appendChild(h3);
-        article.appendChild(p);
-        article.appendChild(span);
+        this.div.appendChild(this.img);
+        this.article.appendChild(this.div);
+        this.article.appendChild(this.h2);
+        this.article.appendChild(this.h3);
+        this.article.appendChild(this.p);
+        this.article.appendChild(this.span);
 
-        return (article);
-
+        console.log('this :: ', this)
     }
-    AppendUserCardDOM(article) {
-        const photographersSection = document.querySelector(".photographer_section");
-        photographersSection.appendChild(article);
+
+    AppendCardDOM(query = ".photographer_section") {
+        const photographersSection = document.querySelector(query);
+
+        photographersSection.appendChild(this.article);
     }
 }

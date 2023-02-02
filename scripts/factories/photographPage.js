@@ -13,7 +13,7 @@ export class PhotographPage {
     photographMain = document.querySelector("main");
     filterSection = document.createElement("div");
     mediaSection = document.createElement("section");
-    mediaClickedArrowNavigationFlag = false;
+    stopArrowNavigation = false;
 
     filters = ["Popularite", "Date", "Titre"];
 
@@ -222,14 +222,14 @@ export class PhotographPage {
 
         allPageMedia.forEach(element => {
             element.addEventListener("click", () => {
-                this.mediaClickedArrowNavigationFlag = true;
+                this.stopArrowNavigation = true;
                 element.blur();
                 console.log("modale loading");
 
-                new MediaModal(this.mediaToPage, element, this.mediaClickedArrowNavigationFlag);
+                new MediaModal(this.mediaToPage, element, this.stopArrowNavigation);
                 document.addEventListener("mediaModalClosed", event => {
-                    this.mediaClickedArrowNavigationFlag = event.detail;
-                    console.log("this.mediaClickedArrowNavigationFlag", this.mediaClickedArrowNavigationFlag);
+                    this.stopArrowNavigation = event.detail;
+                    console.log("this.mediaClickedArrowNavigationFlag", this.stopArrowNavigation);
                 });
             }
                 //Amelioration : envoyer directement les réfs de media pour ne pas avoir a chercher dans m'instance modale quel media on affiche.
@@ -237,14 +237,14 @@ export class PhotographPage {
 
             element.addEventListener("keyup", event => {
                 if (event.keyCode === 13) {
-                    this.mediaClickedArrowNavigationFlag = true;
+                    this.stopArrowNavigation = true;
                     element.blur();
                     console.log("modale loading");
 
-                    new MediaModal(this.mediaToPage, element, this.mediaClickedArrowNavigationFlag);
+                    new MediaModal(this.mediaToPage, element, this.stopArrowNavigation);
                     document.addEventListener("mediaModalClosed", event => {
-                        this.mediaClickedArrowNavigationFlag = event.detail;
-                        console.log("this.mediaClickedArrowNavigationFlag", this.mediaClickedArrowNavigationFlag);
+                        this.stopArrowNavigation = event.detail;
+                        console.log("this.stopArrowNavigation", this.stopArrowNavigation);
                     });
                 }
                 //Amelioration : envoyer directement les réfs de media pour ne pas avoir a chercher dans m'instance modale quel media on affiche.
@@ -302,44 +302,44 @@ export class PhotographPage {
         });
     }
     arrowPhotographNavigation() {
-        // if (!this.mediaClickedArrowNavigationFlag) {
-        // console.log("Navigation authorized");
-        // console.log("this.mediaClickedArrowNavigationFlag in arrowPhotographNavigation", this.mediaClickedArrowNavigationFlag);
+        if (!this.stopArrowNavigation) {
+            console.log("Navigation authorized");
+            console.log("this.stopArrowNavigation in arrowPhotographNavigation", this.stopArrowNavigation);
 
-        document.addEventListener("keydown", function (event) {
-            if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-                let elements = document.querySelectorAll("[tabindex]");
-                // console.log("elements", elements);
-                let currentIndex = Number(document.activeElement.getAttribute("tabindex")) - 1;
-                // console.log("currentIndex", currentIndex);
-                // console.log("document.activeElement.tagName", document.activeElement.tagName);
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                    let elements = document.querySelectorAll("[tabindex]");
+                    console.log("elements", elements);
+                    let currentIndex = Number(document.activeElement.getAttribute("tabindex")) - 1;
+                    // console.log("currentIndex", currentIndex);
+                    // console.log("document.activeElement.tagName", document.activeElement.tagName);
 
+                    if (currentIndex === undefined || currentIndex === null || currentIndex === -1) {
+                        elements[0].focus();
+                    }
+                    if (event.key === "ArrowRight" && currentIndex < elements.length - 1) {
+                        event.preventDefault();
+                        currentIndex += 1;
+                        console.log("currentIndex", currentIndex);
+                        console.log("going right");
+                        // Code à exécuter lorsque la touche flèche droite
+                        elements[currentIndex].focus();
+                    }
+                    if (event.key === "ArrowLeft" && currentIndex >= 1) {
+                        event.preventDefault();
+                        currentIndex -= 1;
+                        console.log("currentIndex", currentIndex);
+                        console.log("going left");
+                        // Code à exécuter lorsque la touche flèche gauche
+                        elements[currentIndex].focus();
+                    }
+                    console.log("currentIndex end", currentIndex);
 
-                if (currentIndex === undefined || currentIndex === null || currentIndex === -1) {
-                    elements[0].focus();
                 }
-                if (event.key === "ArrowRight" && currentIndex < elements.length - 1) {
-                    event.preventDefault();
-                    currentIndex += 1;
-                    console.log("currentIndex", currentIndex);
-                    console.log("going right");
-                    // Code à exécuter lorsque la touche flèche droite
-                    elements[currentIndex].focus();
-                }
-                if (event.key === "ArrowLeft" && currentIndex >= 1) {
-                    event.preventDefault();
-                    currentIndex -= 1;
-                    console.log("currentIndex", currentIndex);
-                    console.log("going left");
-                    // Code à exécuter lorsque la touche flèche gauche
-                    elements[currentIndex].focus();
-                }
-                console.log("currentIndex end", currentIndex);
-            }
-        });
-        // } else {
-        //     console.log("Navigation forbidden");
-        // }
+            });
+        }
+        else {
+            console.log("Navigation forbidden");
+        }
     }
 }
-

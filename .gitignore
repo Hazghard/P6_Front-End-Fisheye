@@ -1,2 +1,5 @@
-
-node_modules/
+node_modules
+scripts/factories/patternFactory.js
+scripts/utils/mediaClicked.js
+scripts/factories/photographPageFactory.js
+assets/images

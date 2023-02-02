@@ -1,6 +1,6 @@
 # Base de code du projet P6 - Parcours Front-end
 
-## Démarrer le projet
+## Lien GitHub Pages
 
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
+https://hazghard.github.io/P6_Front-End-Fisheye/
 

@@ -2,10 +2,36 @@
     display: none;
 }
 
+#main {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ------------------------------------             ------------------------------------ */
+/* ------------------------------------ Main header ------------------------------------ */
+/* ------------------------------------             ------------------------------------ */
+
+
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 50px 0px 50px;
+    border-radius: 5px;
+}
+
+.photograph-header--txtWrapper {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+.photograph-header--txtWrapper h1 {
+    margin: 0;
 }
 
 .contact_button {
@@ -21,6 +47,201 @@
     cursor: pointer;
 }
 
+.photograph-header--img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+/* ------------------------------------             ------------------------------------ */
+/* ------------------------------------ Main filter ------------------------------------ */
+/* ------------------------------------             ------------------------------------ */
+
+.section-filter--container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 20px 0px 50px 0px;
+}
+
+.section-filter--container label {
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.filters--select {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* ------------------------------------            ------------------------------------ */
+/* ------------------------------------ Main media ------------------------------------ */
+/* ------------------------------------            ------------------------------------ */
+
+.section-media--container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    justify-items: center;
+}
+
+.section-media--container article {
+    width: 350px;
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+    position: relative;
+}
+
+.section-media--container .mediaContent {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.mediaSection--txt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mediaSection--txt h2 {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31px;
+    color: #911C1C;
+}
+
+.mediaSection--txt span {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+    color: #911C1C;
+}
+
+.mediaSection--txt i {
+    font-size: 24px;
+    line-height: 31px;
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #911C1C;
+}
+
+.mediaSection--txt i:hover {
+    color: #911C1C;
+    -webkit-text-stroke-width: 0px;
+}
+
+.mediaSection--txt div {
+    display: flex;
+    gap: 15px;
+}
+
+.mediaSection--txt .liked {
+    color: #911C1C;
+    animation: heartPulse .25s cubic-bezier(.175, .885, .32, 1.275) both;
+}
+
+@keyframes heartPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+.media--container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.media--container img,
+video {
+    width: 100%;
+}
+
+.videoIcon--container {
+    position: absolute;
+    width: 350px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.98);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-size: 3rem;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+/* ------------------------------------        ------------------------------------ */
+/* ------------------------------------ Footer ------------------------------------ */
+/* ------------------------------------        ------------------------------------ */
+
+footer {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 75vw;
+
+    background-color: #DB8876;
+    border-radius: 5px 5px 0px 0px;
+
+    width: fit-content;
+
+    gap: 2rem;
+    padding: 0 1rem;
+
+
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+    color: black;
+}
+
+.likes--container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+
+
+
+
+/* ------------------------------------               ------------------------------------ */
+/* ------------------------------------ CONTACT MODAL ------------------------------------ */
+/* ------------------------------------               ------------------------------------ */
+
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -31,6 +252,10 @@
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+    position: fixed;
+    top: 2rem;
+    left: 25%;
+
 }
 
 .modal header {
@@ -42,10 +267,12 @@
     cursor: pointer;
 }
 
-.modal header h2 {
+.modal header h2,
+h3 {
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+    margin-bottom: 0;
 }
 
 form {
@@ -70,7 +297,75 @@ form div {
 
 form input {
     width: 100%;
-    height: 68px;
+    font-size: 68px;
     border: none;
     border-radius: 5px;
+}
+
+form #message {
+    width: 100%;
+    font-size: 68px;
+    resize: vertical;
+}
+
+/* ------------------------------------             ------------------------------------ */
+/* ------------------------------------ MEDIA MODAL ------------------------------------ */
+/* ------------------------------------             ------------------------------------ */
+
+.modal--container {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.9);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.mediaModal--close {
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    filter: brightness(0) saturate(100%) invert(17%) sepia(24%) saturate(6361%) hue-rotate(348deg) brightness(102%) contrast(90%);
+    /*  https://angel-rs.github.io/css-color-filter-generator/  */
+}
+
+.carousel__Btn--Container {
+    height: inherit;
+    width: max-content;
+    padding: 0 2.5rem 0 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #911C1C;
+}
+
+.carousel__Btn--Container i {
+    font-size: 3rem;
+}
+
+.modal__media--Container {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__media--Container img {
+    max-height: 80%;
+    max-width: 80%;
+}
+
+img,
+video,
+.mediaSection--txt i {
+    cursor: pointer;
+}
+
+:focus {
+    outline: none;
+    border: 10px solid #1e1c90;
 }

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "sharp": "^0.31.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

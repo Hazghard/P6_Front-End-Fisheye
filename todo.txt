@@ -1,0 +1,4 @@
+
+❒ Le code est bien commenté, ce qui signifie que toute intention qui ne peut être immédiatement comprise en regardant le code lui-même peut être comprise en lisant les commentaires.
+
+❒ Les balises d'accessibilité passent le test AChecker sans "known issues".

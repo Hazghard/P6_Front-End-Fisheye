@@ -1,3 +1,7 @@
+
+/**
+ * Utilisation d'extends pour mise en pratique de la propriété, pourrait être directement dans la class PhotographsCreation
+ */
 export class DomConstruction {
     photographersSection = document.querySelector(".photographer_section");
 
@@ -8,7 +12,9 @@ export class DomConstruction {
     }
 }
 
-
+/**
+ * class permettant le construction de l'index par appel instancié de new photogrpah depuis l'indexV2
+ */
 export class PhotographsCreation extends DomConstruction {
 
     article = document.createElement("article");
@@ -22,7 +28,7 @@ export class PhotographsCreation extends DomConstruction {
         this.article.innerHTML = `
         <div class="photographer_section--divContainer">
             <a href="photographer.html?id=${photograph.id}"  tabindex="${PhotographsCreation.tabCounterIndex}">
-                <img class="photographer_section--img media--Link" src="assets/photographers/${photograph.portrait}" alt="${photograph.name}"  aria-label="Learn more about ${photograph.name}">
+                <img class="photographer_section--img media--Link" src="assets/photographers/${photograph.portrait}" alt="${photograph.name}"  aria-label="En savoir plus sûr ${photograph.name}">
             </a>
             <h2>${photograph.name}</h2>
         </div>

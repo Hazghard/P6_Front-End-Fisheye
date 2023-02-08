@@ -13,15 +13,17 @@ export class PhotographPage {
     photographMain = document.querySelector("main");
     filterSection = document.createElement("div");
     mediaSection = document.createElement("section");
-    stopArrowNavigation = false;
+    stopArrowNavigation;
 
-    filters = ["Popularite", "Date", "Titre"];
+    filters = ["Popularité", "Date", "Titre"];
 
     constructor(AllPhotographWithMedia) {
         this.AllPhotographWithMedia = AllPhotographWithMedia;
         this.photographURLId = new URL(location.href).searchParams.get("id");
         this.photographMedia = this.AllPhotographWithMedia.find(element => element.id == this.photographURLId);
         this.mediaToPage = this.photographMedia.media;
+        this.stopArrowNavigation = false;
+
 
         this.main();
     }
@@ -31,44 +33,21 @@ export class PhotographPage {
      * Chef d'orchestre de la generation de page
      */
     main() {
-        /**
-         * Mise à jour du tri de la liste des media
-         */
+
         this.arraySort();
-        /**
-         * Construction de la page
-         */
         this.photagraphPageConstruct();
-        /**
-         * Insertion des media dans la main
-         */
         this.mediaBuilder();
-        /**
-         * Generation du footer
-         */
         this.photographFooter();
-        /**
-         * Mise à jour en fonction du trigger de filter
-         */
         this.filterChange();
-        /**
-         * Generation de la modale de contact sur clic bouton
-         */
         this.contactConstruct();
-        /**
-         * Recuperation du media clické pour instancier une modale media
-         */
         this.mediaClickModal();
-        /**
-         * Recuperation de likes et mises a jours
-         */
         this.likesUpdate();
-        /**
-         * Gestion de la navigation sur la page photographe
-         */
         this.arrowPhotographNavigation();
     }
 
+    /**
+     * Construction de la page photographe par insertion dans le domaine des élements pricnipaux
+     */
     photagraphPageConstruct() {
         // console.log(this.AllPhotographWithMedia, this.photographURLId, this.photographMedia, this.mediaToPage);
 
@@ -84,7 +63,7 @@ export class PhotographPage {
                     <p>${this.photographMedia.tagline}</p>
                 </div>
             </div>
-            <button class="contact_button tabIndexToSwitch" onclick="displayModal()" tabindex="2" aria-label="Contact Me">Contactez-moi</button>
+            <button class="contact_button tabIndexToSwitch" onclick="displayModal()" tabindex="2" aria-label="Contactez-moi">Contactez-moi</button>
             <img src="../assets/photographers/${this.photographMedia.portrait}" class="photograph-header--img" alt="${this.photographMedia.name}" aria-label="${this.photographMedia.name}">
         `;
 
@@ -107,6 +86,10 @@ export class PhotographPage {
         this.mediaSection.innerHTML = "";
         this.photographMain.appendChild(this.mediaSection);
     }
+
+    /**
+     *  Iteration sur les media pour insertion de chacun dans le main
+     */
     mediaBuilder() {
         let tabCounterPhotographPage = 4;
         this.mediaSection.innerHTML = "";
@@ -135,6 +118,10 @@ export class PhotographPage {
             tabCounterPhotographPage += 1;
         });
     }
+
+    /**
+     *  Creation et insertion du footer
+     */
     photographFooter() {
         let photographFooter = document.createElement("footer");
 
@@ -150,6 +137,11 @@ export class PhotographPage {
         `;
         this.photographMain.insertAdjacentElement("afterend", photographFooter);
     }
+
+    /**
+     * Fonction servant à catcher le changement de filtre, réorginisation du tableau de medias, puis execution de mediaBuilder par remise à zero et regeneration
+     * Le tableau de media est réarangé dans l'odre en fonction du critère filtre selectionné 
+     */
     filterChange() {
         const selectedFilterOption = document.querySelector("select");
         // console.log(selectedFilterOption);
@@ -160,6 +152,11 @@ export class PhotographPage {
             this.mediaBuilder();
         });
     }
+
+    /**
+     * Tri de l'array en fonction du param de filtre
+     * @param {*} filterValue 
+     */
     arraySort(filterValue) {
         switch (filterValue) {
             case this.filters[0]:
@@ -180,6 +177,10 @@ export class PhotographPage {
 
         // console.log("mediaToPage", this.mediaToPage)
     }
+
+    /**
+     * Generation de la modale contact
+     */
     contactConstruct() {
         let contactContainer = document.querySelector(".contact__form--Container");
         contactContainer.innerHTML += `
@@ -214,14 +215,19 @@ export class PhotographPage {
             getAllInputs.forEach(element => {
                 getAllInputsAnswers[element.name] = element.value;
             });
-            // console.log(getAllInputsAnswers);
+            console.log(getAllInputsAnswers);
         });
     }
+
+    /**
+     * Capatation du click sur un media puis tranfert vers la modale permettant de créer la mediaModale
+     */
     mediaClickModal() {
         const allPageMedia = Array.from(document.querySelectorAll(".mediaContent"));
 
         allPageMedia.forEach(element => {
             element.addEventListener("click", () => {
+                console.log(this.stopArrowNavigation);
                 this.stopArrowNavigation = true;
                 element.blur();
                 console.log("modale loading");
@@ -254,7 +260,7 @@ export class PhotographPage {
     }
 
     /**
-     * 
+     * Update des likes des photos et globaux du photographe quand click sur un coeur
      */
     likesUpdate() {
         const getAllLikesBtn = Array.from(document.querySelectorAll(".fa-heart"));
@@ -301,15 +307,19 @@ export class PhotographPage {
             });
         });
     }
-    arrowPhotographNavigation() {
-        if (!this.stopArrowNavigation) {
-            console.log("Navigation authorized");
-            console.log("this.stopArrowNavigation in arrowPhotographNavigation", this.stopArrowNavigation);
 
-            document.addEventListener("keydown", function (event) {
+    /**
+     * Gestion de la navigation par touche arrow (et celles du numpad)
+     */
+    arrowPhotographNavigation() {
+        document.addEventListener("keydown", (event) => {
+            if (!this.stopArrowNavigation) {
+                console.log("Navigation authorized");
+                // console.log("this.stopArrowNavigation in arrowPhotographNavigation", this.stopArrowNavigation);
+
                 if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
                     let elements = document.querySelectorAll("[tabindex]");
-                    console.log("elements", elements);
+                    // console.log("elements", elements);
                     let currentIndex = Number(document.activeElement.getAttribute("tabindex")) - 1;
                     // console.log("currentIndex", currentIndex);
                     // console.log("document.activeElement.tagName", document.activeElement.tagName);
@@ -320,26 +330,26 @@ export class PhotographPage {
                     if (event.key === "ArrowRight" && currentIndex < elements.length - 1) {
                         event.preventDefault();
                         currentIndex += 1;
-                        console.log("currentIndex", currentIndex);
-                        console.log("going right");
+                        // console.log("currentIndex", currentIndex);
+                        // console.log("going right");
                         // Code à exécuter lorsque la touche flèche droite
                         elements[currentIndex].focus();
                     }
                     if (event.key === "ArrowLeft" && currentIndex >= 1) {
                         event.preventDefault();
                         currentIndex -= 1;
-                        console.log("currentIndex", currentIndex);
-                        console.log("going left");
+                        // console.log("currentIndex", currentIndex);
+                        // console.log("going left");
                         // Code à exécuter lorsque la touche flèche gauche
                         elements[currentIndex].focus();
                     }
-                    console.log("currentIndex end", currentIndex);
+                    // console.log("currentIndex end", currentIndex);
 
                 }
-            });
-        }
-        else {
-            console.log("Navigation forbidden");
-        }
+            }
+            else {
+                console.log("Navigation forbidden");
+            }
+        });
     }
 }

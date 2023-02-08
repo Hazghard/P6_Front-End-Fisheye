@@ -6,7 +6,7 @@ let listJson = "";
  */
 async function getJSONinfo() {
     try {
-        const response = await fetch("../../data/photographers.json");
+        const response = await fetch("data/photographers.json");
         listJson = await response.json();
         return listJson;
 

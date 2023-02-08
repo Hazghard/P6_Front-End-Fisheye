@@ -28,7 +28,7 @@ export class PhotographsCreation extends DomConstruction {
         this.article.innerHTML = `
         <div class="photographer_section--divContainer">
             <a href="photographer.html?id=${photograph.id}"  tabindex="${PhotographsCreation.tabCounterIndex}">
-                <img class="photographer_section--img media--Link" src="assets/photographers/${photograph.portrait}" alt="${photograph.name}"  aria-label="En savoir plus sûr ${photograph.name}">
+                <img class="photographer_section--img media--Link" src="./assets/photographers/${photograph.portrait}" alt="${photograph.name}"  aria-label="En savoir plus sûr ${photograph.name}">
             </a>
             <h2>${photograph.name}</h2>
         </div>

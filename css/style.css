@@ -66,10 +66,10 @@ h1 {
     border-radius: 50%;
 }
 
-.photographer_section--divContainer a:focus {
+/* .photographer_section--divContainer a:focus {
     outline: none;
     border: 2px solid #901C1C;
-}
+} */
 
 
 .photographer_section--img {

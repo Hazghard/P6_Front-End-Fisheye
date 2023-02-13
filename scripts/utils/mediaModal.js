@@ -45,7 +45,7 @@ export class MediaModal {
         this.logoBaliseA = document.querySelector(".logo--a");
         this.main();
         // console.log("this.mediaList", this.mediaList, "this.mediaClicked", this.mediaClicked, "this.actualMedia", this.actualMedia, mediaClickedArrowNavigationFlag);
-
+        console.log("this.actualMedia", this.actualMedia);
     }
     /**
      * Chef d'orchestre

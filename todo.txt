@@ -1,1 +1,57 @@
 ❒ Le code est bien commenté, ce qui signifie que toute intention qui ne peut être immédiatement comprise en regardant le code lui-même peut être comprise en lisant les commentaires.
+
+
+Compétences évaluées
+
+
+4. Développer une application web modulaire avec des design patterns
+Validé
+Commentaires : La mise en place d’un pattern design (constructor). Le pattern design factory n’a pas complètement était saisi.
+
+
+
+
+Des points sont à corriger.
+•	une fois que la liste des médias d’un photographe est re-ordonné, le lightbox et les likes ne sont plus fonctinonel
+        Fait : correction par reajout des appels de fonctions
+
+•	Il y a encore un “known issue” de la home page AChecker
+        Fait : Ce n'etait pas une erreur de code, mais losque l'on copy le code HTML generé, on ne prends pas le <!DOCTYPE html> avec, du coup cela créer une erreur.
+               La ca fonctionne en checkant l'url et en copiant le code html avec <!DOCTYPE html>
+
+
+•	Pas d’utilisation des balises sémantiques
+        
+
+
+•	Le formulaire de contacte et les likes n’est pas accéssible au clavier
+        Fait : Les likes sont maintenant accessible via clavier, et il est aussi possible de liker en appuyant sur enter depuis le coeur
+        
+        Fait : formulaire de contact 
+                    Il est navigable par touche tabulation je remet tous les tabindex à -1 sur l'ouverture
+                    Il est possible de fermer la modale par appuis sur Echap ou sur seletion de la croix et appuis sur enter
+
+
+•	L’intégration graphique du selecteur ne correspond pas vraiment à la maquette
+
+        Page globale :
+            - retouche pour que le header ait un padding left et right de 100px (identique a figma)
+
+        Page et header :
+            - mise en place d'un padding de 42.91px (comme sur figma) par rapport au haut de la page
+
+        Footer page photographe : 
+            - positionné comme en sticky + float right avec right de 36px par rapport à la taille max de la page (1440px)
+            - redimentionnement interne avec padding gauche et droite
+
+
+        J'ai fais de mon mieux, concernant la section filtre, dans la maquette figma on nous permet de le faire via <select>
+        Comme il s'agit d'un select, les modifications css sont plus que limitées. 
+        Il m'est impossible de mofifier le sens de la fleche ou bien les options pour inserer une trait et augmenter l'espace.
+        Pour coller à 100% au design figma, il me faudrait tout enlever pour remplacer des ul > li et créer un code JS de gestion d'affichage dropdown + conditionnement de la valeur et affichage des fleches de direction par changement de classes
+        
+        Faut-il que je le fasse pour que le projet soit validé ?
+
+
+•	Resoudre erreur AChecker concernant les i
+    Fait : remplacement par balises em

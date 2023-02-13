@@ -14,6 +14,9 @@ export class PhotographPage {
     filterSection = document.createElement("div");
     mediaSection = document.createElement("section");
     stopArrowNavigation;
+    elementsToModify;
+    originalStyles = {};
+
 
     filters = ["Popularité", "Date", "Titre"];
 
@@ -63,8 +66,8 @@ export class PhotographPage {
                     <p>${this.photographMedia.tagline}</p>
                 </div>
             </div>
-            <button class="contact_button tabIndexToSwitch" onclick="displayModal()" tabindex="2" aria-label="Contactez-moi">Contactez-moi</button>
-            <img src="../assets/photographers/${this.photographMedia.portrait}" class="photograph-header--img" alt="${this.photographMedia.name}" aria-label="${this.photographMedia.name}">
+            <button class="contact_button tabIndexToSwitch" tabindex="2" aria-label="Contactez-moi">Contactez-moi</button>
+            <img src="assets/photographers/${this.photographMedia.portrait}" class="photograph-header--img" alt="${this.photographMedia.name}" aria-label="${this.photographMedia.name}">
         `;
 
         //creation de la partie filter
@@ -85,6 +88,17 @@ export class PhotographPage {
         this.mediaSection.setAttribute("class", "section-media--container");
         this.mediaSection.innerHTML = "";
         this.photographMain.appendChild(this.mediaSection);
+
+
+        // Captation d'event sur le bouton d'ouverture de la modale de contact
+        document.querySelector(".contact_button").addEventListener("click", () => {
+            this.openContactModal();
+        });
+        document.querySelector(".contact_button").addEventListener("keyup", event => {
+            if (event.keyCode === 13) {
+                this.openContactModal();
+            }
+        });
     }
 
     /**
@@ -102,20 +116,20 @@ export class PhotographPage {
 
             mediaSectionContent.innerHTML = `
                 <div class="media--container" >
-                    <${mediaType} src="../assets/images/${element.photographerId}/${media}" class="mediaContent tabIndexToSwitch" tabindex="${tabCounterPhotographPage}" aria-label="${element.title}" alt="${element.title}"></${mediaType}>
-                    ${mediaType === "video" ? "<div class='videoIcon--container'><i class='fa-solid fa-play'></i></div>" : ""}
+                    <${mediaType} src="assets/images/${element.photographerId}/${media}" class="mediaContent tabIndexToSwitch" tabindex="${tabCounterPhotographPage}" aria-label="${element.title}" alt="${element.title}"></${mediaType}>
+                    ${mediaType === "video" ? "<div class='videoIcon--container'><em class='fa-solid fa-play'></em></div>" : ""}
                 </div>
                 <div class="mediaSection--txt">
                     <h2>${element.title}</h2>
                     <div aria-label="likes">
                         <span>${element.likes}</span>
-                        <i class="fa-solid fa-heart" mediaid="${element.id}"></i>
+                        <em class="fa-solid fa-heart tabIndexToSwitch" mediaid="${element.id}" tabindex="${tabCounterPhotographPage + 1}"></em>
                     </div>
                 </div>
             `;
             this.mediaSection.appendChild(mediaSectionContent);
             // console.log(mediaSectionContent)
-            tabCounterPhotographPage += 1;
+            tabCounterPhotographPage += 2;
         });
     }
 
@@ -131,7 +145,7 @@ export class PhotographPage {
         photographFooter.innerHTML = `
             <div class="likes--container">
                 <p>${photographLikesNb}</p>
-                <i class="fa-solid fa-heart"></i>
+                <em class="fa-solid fa-heart"></em>
             </div>
             <p>${this.photographMedia.price} €/jour</p>
         `;
@@ -150,6 +164,8 @@ export class PhotographPage {
             let filterValue = selectedFilterOption.value;
             this.arraySort(filterValue);
             this.mediaBuilder();
+            this.mediaClickModal();
+            this.likesUpdate();
         });
     }
 
@@ -182,26 +198,38 @@ export class PhotographPage {
      * Generation de la modale contact
      */
     contactConstruct() {
-        let contactContainer = document.querySelector(".contact__form--Container");
-        contactContainer.innerHTML += `
-        <h3>${this.photographMedia.name}</h3>
-        <div>
-            <label for="prenom">Prénom</label>
-            <input id="prenom" type="text" name="firstname">
+
+        // this.tabIndexOriginalStateSave();
+
+        let contactContainer = document.querySelector("#contact_modal");
+        contactContainer.innerHTML = `
+        <div class="modal">
+            <header>
+            <h2>Contactez-moi</h2>
+            <img src="assets/icons/close.svg" class="btn--contact__close" alt="Button to close contact form" tabindex="1"/>
+            </header>
+            <form class="contact__form--Container">
+                <h3>${this.photographMedia.name}</h3>
+                <div>
+                    <label for="prenom">Prénom</label>
+                    <input id="prenom" type="text" name="firstname" aria-label="Indiquez votre prénom" tabindex="2">
+                </div>
+                <div>
+                    <label for="nom">Nom</label>
+                    <input id="nom" type="text" name="lastname" aria-label="Indiquez votre nom" tabindex="3">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" aria-label="Entrez votre adresse mail" tabindex="4">
+                </div>
+                <div>
+                    <label for="message">Votre Message</label>
+                    <textarea id="message" name="message" aria-label="Entrez votre message" tabindex="5"></textarea>
+                </div>
+                <button class="contact_button buttonFormSubmit" tabindex="">Envoyer</button>
+        
+            </form>
         </div>
-        <div>
-            <label for="nom">Nom</label>
-            <input id="nom" type="text" name="lastname">
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input id="email" type="email" name="email">
-        </div>
-        <div>
-            <label for="message">Votre Message</label>
-            <textarea id="message" name="message"></textarea>
-        </div>
-        <button class="contact_button buttonFormSubmit">Envoyer</button>
         `;
 
         let buttonFormSubmit = document.querySelector(".buttonFormSubmit");
@@ -217,6 +245,17 @@ export class PhotographPage {
             });
             console.log(getAllInputsAnswers);
         });
+
+        // Captation d'event sur la croix de modale de contact
+        document.querySelector(".btn--contact__close").addEventListener("click", () => {
+            this.closeContactModal();
+        });
+        document.querySelector(".btn--contact__close").addEventListener("keyup", event => {
+            if (event.keyCode === 13) {
+                this.closeContactModal();
+            }
+        });
+
     }
 
     /**
@@ -260,52 +299,66 @@ export class PhotographPage {
     }
 
     /**
-     * Update des likes des photos et globaux du photographe quand click sur un coeur
+     * Capatation des click ou appuis sur enter depuis un coeur
      */
     likesUpdate() {
         const getAllLikesBtn = Array.from(document.querySelectorAll(".fa-heart"));
         getAllLikesBtn.forEach(item => {
             item.addEventListener("click", event => {
+                this.updateLikes(event);
+            });
 
-                let alreadyLiked = false;
-                const likedIcon = event.target;
-
-                // if (likedIcon.classList)
-                // console.log("likedIcon.classList", likedIcon.classList);
-                for (let i = 0; i < likedIcon.classList.length; i++) {
-                    if (likedIcon.classList[i] === "liked")
-                        alreadyLiked = true;
-                }
-
-                if (!alreadyLiked) {
-                    //ajout de la classe liked au coeur
-                    likedIcon.classList.value += " liked";
-
-                    console.log("mediaToPage", this.mediaToPage);
-
-                    let likedMediaID = Number(event.target.attributes.mediaid.value);
-                    // console.log("likedMediaID", likedMediaID, typeof (likedMediaID));
-                    //recuperation de l'objet du media
-                    let likedMediaIndex = this.mediaToPage.findIndex(obj => obj.id == likedMediaID);
-                    // console.log("likedMediaIndex", likedMediaIndex);
-
-                    //ajout du like dans l'objet
-                    this.mediaToPage[likedMediaIndex].likes += 1;
-
-
-                    // console.log("mediaToPage", this.mediaToPage);
-
-                    //maj du spam likes du media
-                    let span = event.target.parentNode.querySelector("span");
-                    let spanValue = Number(span.textContent);
-                    span.textContent = spanValue + 1;
-
-                    //supression du footer et reajout
-                    document.querySelector("footer").remove();
-                    this.photographFooter();
+            item.addEventListener("keydown", event => {
+                if (event.keyCode === 13) {
+                    this.updateLikes(event);
                 }
             });
         });
+    }
+
+
+    /**
+    * Update des likes des photos et globaux du photographe suite a captation de click sur un coeur ou appuy sur enter
+    * @param {*} event 
+    */
+    updateLikes(event) {
+        let alreadyLiked = false;
+        const likedIcon = event.target;
+
+        // if (likedIcon.classList)
+        // console.log("likedIcon.classList", likedIcon.classList);
+        for (let i = 0; i < likedIcon.classList.length; i++) {
+            if (likedIcon.classList[i] === "liked")
+                alreadyLiked = true;
+        }
+
+        if (!alreadyLiked) {
+            //ajout de la classe liked au coeur
+            likedIcon.classList.value += " liked";
+
+            console.log("mediaToPage", this.mediaToPage);
+
+            let likedMediaID = Number(event.target.attributes.mediaid.value);
+            // console.log("likedMediaID", likedMediaID, typeof (likedMediaID));
+            //recuperation de l'objet du media
+            let likedMediaIndex = this.mediaToPage.findIndex(obj => obj.id == likedMediaID);
+            // console.log("likedMediaIndex", likedMediaIndex);
+
+            //ajout du like dans l'objet
+            this.mediaToPage[likedMediaIndex].likes += 1;
+
+
+            // console.log("mediaToPage", this.mediaToPage);
+
+            //maj du spam likes du media
+            let span = event.target.parentNode.querySelector("span");
+            let spanValue = Number(span.textContent);
+            span.textContent = spanValue + 1;
+
+            //supression du footer et reajout
+            document.querySelector("footer").remove();
+            this.photographFooter();
+        }
     }
 
     /**
@@ -351,5 +404,64 @@ export class PhotographPage {
                 console.log("Navigation forbidden");
             }
         });
+    }
+    /**
+     * Chargement de la modale de contact
+     */
+    openContactModal() {
+        this.stopArrowNavigation = true;
+        this.tabIndexOriginalStateSave();
+        const modal = document.getElementById("contact_modal");
+        modal.style.display = "block";
+
+        //trigger si appuis sur echap pour fermeture
+        document.addEventListener("keyup", event => {
+            if (event.key === "Escape") {
+                this.closeContactModal();
+            }
+        });
+    }
+
+    /**
+     * Déchargement de la modale par supression du dom
+     * Peux être déclenché par appuis sur la croix (click ou selection par tyouche tab et appuis sur touche enter), ou appuis sur la touche echap
+     */
+    closeContactModal() {
+
+        const modal = document.getElementById("contact_modal");
+        modal.style.display = "none";
+
+        //Restauration des tabindex comme à l'origine
+        for (let i = 0; i < this.elementsToModify.length; i++) {
+            this.elementsToModify[i].style.pointerEvents = this.originalStyles[i].pointerEvents;
+            this.elementsToModify[i].tabIndex = this.originalStyles[i].tabIndex;
+        }
+
+        //Remise du tab index pour le a du logo
+        // this.logoBaliseA.setAttribute("tabindex", "1");
+
+        // opérations pour fermer la modale...
+        this.stopArrowNavigation = false;
+    }
+    /**
+     * Fonction de sauvegarde des tabindex pour navigation uniquement dans la modale
+     */
+    tabIndexOriginalStateSave() {
+        // Sélection des éléments à modifier
+        this.elementsToModify = document.querySelectorAll(".tabIndexToSwitch");
+        // console.log("this.elementsToModify", this.elementsToModify);
+
+        // Stockage de l'état d'origine des éléments
+        for (let i = 0; i < this.elementsToModify.length; i++) {
+            this.originalStyles[i] = {
+                pointerEvents: this.elementsToModify[i].style.pointerEvents,
+                tabIndex: this.elementsToModify[i].tabIndex
+            };
+        }
+        // Appliquer les propriétés de style pour empêcher la navigation
+        for (let i = 0; i < this.elementsToModify.length; i++) {
+            this.elementsToModify[i].style.pointerEvents = "none";
+            this.elementsToModify[i].tabIndex = -1;
+        }
     }
 }

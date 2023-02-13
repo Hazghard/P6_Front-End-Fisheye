@@ -74,13 +74,13 @@ export class MediaModal {
         mediaModal.setAttribute("class", "modal--container");
         mediaModal.innerHTML = `
         <div class="carousel__Btn--Container">
-            <i class="fa-solid fa-chevron-left carousel--Btn carousel--left" tabindex="${medialModalTabIndex + 2}"></i>
+            <em class="fa-solid fa-chevron-left carousel--Btn carousel--left" tabindex="${medialModalTabIndex + 2}"></em>
         </div>
         <div class="modal__media--Container">
             <${this.actualMediaType} src="${this.actualMedia}" aria-label="${this.mediaList[this.actualMediaIndex].title}" alt="${this.mediaList[this.actualMediaIndex].title}">
         </div>
         <div  class="carousel__Btn--Container">
-            <i class="fa-solid fa-chevron-right carousel--Btn carousel--right" tabindex="${medialModalTabIndex + 3}"></i>
+            <em class="fa-solid fa-chevron-right carousel--Btn carousel--right" tabindex="${medialModalTabIndex + 3}"></em>
         </div>
         <img src="assets/icons/close.svg" class="mediaModal--close" tabindex="${medialModalTabIndex + 1}" alt="Button to close the media"/>
         `;
@@ -140,6 +140,14 @@ export class MediaModal {
         document.querySelector(".mediaModal--close").addEventListener("click", () => {
             this.closeMediaModal();
         });
+
+        //trigger si appuis sur echap pour fermeture
+        document.addEventListener("keyup", event => {
+            if (event.key === "Escape") {
+                this.closeMediaModal();
+            }
+        });
+
 
 
         this.sliderBtnDisplay();

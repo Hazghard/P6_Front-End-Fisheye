@@ -11,7 +11,7 @@ export class PhotographPage {
     mediaToPage; //only photograph's media
     photographPageHeader = document.querySelector(".photograph-header");
     photographMain = document.querySelector("main");
-    filterSection = document.createElement("div");
+    filterSection = document.createElement("section");
     mediaSection = document.createElement("section");
     stopArrowNavigation;
     elementsToModify;

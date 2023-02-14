@@ -21,7 +21,14 @@ Des points sont à corriger.
 
 
 •	Pas d’utilisation des balises sémantiques
-        
+        J'ai remplacé des balises div par des balises section
+        j'utilise :
+                -header
+                -main
+                -footer
+        Pour ce qui est des titre, j'utilise un h1 et des h2
+
+        Mes media sont dans des articles
 
 
 •	Le formulaire de contacte et les likes n’est pas accéssible au clavier
@@ -48,9 +55,9 @@ Des points sont à corriger.
         J'ai fais de mon mieux, concernant la section filtre, dans la maquette figma on nous permet de le faire via <select>
         Comme il s'agit d'un select, les modifications css sont plus que limitées. 
         Il m'est impossible de mofifier le sens de la fleche ou bien les options pour inserer une trait et augmenter l'espace.
-        Pour coller à 100% au design figma, il me faudrait tout enlever pour remplacer des ul > li et créer un code JS de gestion d'affichage dropdown + conditionnement de la valeur et affichage des fleches de direction par changement de classes
-        
-        Faut-il que je le fasse pour que le projet soit validé ?
+        Pour coller à 100% au design figma, il me faudrait tout enlever pour remplacer par des ul > li 
+        et créer un code JS de gestion d'affichage dropdown + conditionnement de la valeur 
+        et affichage des fleches de direction par changement de classes
 
 
 •	Resoudre erreur AChecker concernant les i

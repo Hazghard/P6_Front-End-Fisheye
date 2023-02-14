@@ -179,9 +179,8 @@ export class MediaModal {
 
             const modalMediaContainer = document.querySelector(".modal__media--Container");
             modalMediaContainer.innerHTML = `
-                <${this.nextMediaType} src="/assets/images/${this.photographURLId}/${this.nextMedia}" class="mediaContent"></${this.nextMediaType}>
+                <${this.nextMediaType} src="./assets/images/${this.photographURLId}/${this.nextMedia}" class="mediaContent"></${this.nextMediaType}>
             `;
-
 
             this.actualMedia = `assets/images/${this.photographURLId}/${this.nextMedia}`;
             this.actualMediaIndex += carrouselClickSide;
